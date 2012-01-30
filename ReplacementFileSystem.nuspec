@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>$id$</id>
+    <version>$version$</version>
+    <title>ReplacementFileSystem</title>
+    <authors>Ben Phegan</authors>
+    <owners>Ben Phegan</owners>
+    <projectUrl>http://PROJECT_URL_HERE_OR_DELETE_THIS_LINE</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Provides a reasonably complete IFileSystem, FileSystem and MockFileSystem implementation.</description>
+    <releaseNotes>$notes$</releaseNotes>
+    <copyright>Copyright 2012</copyright>
+    <tags>FileSystem, IFileSystem</tags>
+  </metadata>
+</package>
