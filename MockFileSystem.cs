@@ -5,8 +5,14 @@ using System.Text;
 
 namespace ReplacementFileSystem
 {
+    /// <summary>
+    /// MockFileSystem provides a complete virtual filesystem implementing the IFileSystem interface.
+    /// </summary>
     public class MockFileSystem : IFileSystem
     {
+        /// <summary>
+        /// Info provides a List representing all MockFileSystem objects currently represented.  To add a file or directory, add a MockFileSystemInfo object to this list.
+        /// </summary>
         public List<MockFileSystemInfo> Info = new List<MockFileSystemInfo>();
         string userDataPath;
 
@@ -380,105 +386,6 @@ namespace ReplacementFileSystem
 
                 writer.Write(text);
                 writer.Flush();
-            }
-        }
-
-        public class MockFileSystemInfo
-        {
-            public FileAttributes Attributes;
-            public byte[] FileData;
-            public string FileName;
-            public ItemType ItemType;
-            public DateTime LastWriteTime;
-            public string Path;
-
-            public MockFileSystemInfo() { }
-
-            public MockFileSystemInfo(ItemType itemType, string path, string filename, FileAttributes attributes, DateTime lastWriteTime, string fileData)
-            {
-                ItemType = itemType;
-                Path = path;
-                FileName = filename;
-                Attributes = attributes;
-                LastWriteTime = lastWriteTime;
-                FileData = Encoding.ASCII.GetBytes(fileData);
-            }
-
-            public MockFileSystemInfo(ItemType itemType, string path)
-            {
-                ItemType = itemType;
-                Path = path;
-                FileName = System.IO.Path.GetFileName(path);
-                Attributes = FileAttributes.Normal;
-                if (ItemType == ItemType.Folder)
-                    Attributes |= FileAttributes.Directory;
-
-                LastWriteTime = DateTime.Now;
-                FileData = new byte[0];
-            }
-
-            public MockFileSystemInfo(ItemType itemType, string path, DateTime lastWriteTime, string fileData)
-            {
-                ItemType = itemType;
-                Path = path;
-                FileName = System.IO.Path.GetFileName(path);
-                Attributes = FileAttributes.Normal;
-                if (ItemType == ItemType.Folder)
-                    Attributes |= FileAttributes.Directory;
-
-                LastWriteTime = lastWriteTime;
-                FileData = Encoding.ASCII.GetBytes(fileData);
-            }
-        }
-
-        public class MockFileSystemInfoStream : MemoryStream
-        {
-            MockFileSystemInfo info;
-            bool writable;
-
-            public MockFileSystemInfoStream(MockFileSystemInfo info, bool writable) : base()
-            {
-                this.writable = writable;
-                this.info = info;
-
-                if (!this.writable)
-                {
-                    this.writable = true;
-                    Write(info.FileData, 0, info.FileData.Length);
-                    Position = 0;
-                    this.writable = false;
-                }
-            }
-
-            public override bool CanWrite
-            {
-                get { return writable; }
-            }
-
-            public override void Close()
-            {
-                Flush();
-
-                if (writable)
-                    info.FileData = ToArray();
-
-                base.Close();
-            }
-
-            public override void Write(byte[] buffer, int offset, int count)
-            {
-                if (!writable)
-                    throw new InvalidOperationException("the stream is not writable");
-
-                base.Write(buffer, offset, count);
-            }
-
-            public override void WriteByte(byte value)
-            {
-                if (!writable)
-                    throw new InvalidOperationException("the stream is not writable");
-
-                base.WriteByte(value);
             }
         }
     }
