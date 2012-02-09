@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReplacementFileSystem", "ReplacementFileSystem.csproj", "{DDD3FBA5-6F96-40DE-A3DE-8E2D96F4BE0C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReplacementFileSystem", "ReplacementFileSystem\ReplacementFileSystem.csproj", "{DDD3FBA5-6F96-40DE-A3DE-8E2D96F4BE0C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
