@@ -39,11 +39,11 @@
   <ItemGroup>
     <Compile Include="EncryptionUtil.cs" />
     <Compile Include="FileSystem.cs" />
-    <Compile Include="IFileSystem.cs" />
+    <Compile Include="Interfaces\IFileSystem.cs" />
     <Compile Include="ItemType.cs" />
-    <Compile Include="MockFileSystem.cs" />
-    <Compile Include="MockFileSystemInfo.cs" />
-    <Compile Include="MockFileSystemInfoStream.cs" />
+    <Compile Include="Mock\MockFileSystem.cs" />
+    <Compile Include="Mock\MockFileSystemInfo.cs" />
+    <Compile Include="Mock\MockFileSystemInfoStream.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
