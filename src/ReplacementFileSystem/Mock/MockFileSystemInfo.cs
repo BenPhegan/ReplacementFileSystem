@@ -37,7 +37,20 @@ namespace ReplacementFileSystem
             FileData = Encoding.ASCII.GetBytes(fileData);
         }
 
-        public static MockFileSystemInfo CreateFileObject(string path, string content = null)
+        public static MockFileSystemInfo CreateFileObject(string path, string content)
+        {
+            if (content != null)
+            {
+                using (var sr = new MemoryStream(Encoding.UTF8.GetBytes(content)))
+                {
+                    return CreateFileObject(path, sr);
+                }
+            }
+
+            return CreateFileObject(path);
+        }
+
+        public static MockFileSystemInfo CreateFileObject(string path, Stream content = null)
         {
             var file = new MockFileSystemInfo()
             {
@@ -45,8 +58,13 @@ namespace ReplacementFileSystem
                 ItemType = ReplacementFileSystem.ItemType.File
             };
             if (content != null)
-                file.FileData = Encoding.ASCII.GetBytes(content);
-
+            {
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    content.CopyTo(ms);
+                    file.FileData = ms.ToArray();
+                }
+            }
             return file;
         }
 

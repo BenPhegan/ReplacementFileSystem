@@ -228,6 +228,11 @@ namespace ReplacementFileSystem
 
         public virtual string[] GetFiles(string path)
         {
+            return this.GetFiles(path, "*.*");
+        }
+
+        public virtual string[] GetFiles(string path, string searchPattern)
+        {
             if (Locate(path) == null)
                 throw new DirectoryNotFoundException();
 
@@ -239,16 +244,22 @@ namespace ReplacementFileSystem
                 {
                     string infoDirectoryName = Path.GetDirectoryName(info.Path);
                     if (string.Compare(path, infoDirectoryName, true) == 0)
-                        files.Add(info.Path);
+                    {
+                        if (searchPattern == "*.*")
+                        {
+                            files.Add(info.Path);
+                        }
+                        else
+                        {
+                            string fileName = Path.GetFileName(info.Path);
+                            if (fileName.Contains(searchPattern))
+                                files.Add(info.Path);
+                        }
+                    }
                 }
             }
 
             return files.ToArray();
-        }
-
-        public virtual string[] GetFiles(string path, string searchPattern)
-        {
-            return new string[0];
         }
 
         public virtual long GetFileSize(string path)
